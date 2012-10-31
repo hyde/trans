@@ -1,0 +1,28 @@
+{% extends "base.j2" %}
+{% set walker = node['walk_resources_tagged_with_'~tag] %}
+{% block main %}
+<section class="archives">
+<h1 class="tag title">{{ gettext(tag.name) }}</h1>
+<ul class="posts clear">
+{% for res in walker() if resource.meta.lc == res.meta.lc  -%}
+<li class="post clear">
+    <time datetime="{{ datetime(res.meta.created, '%Y-%m-%d') }}">
+        {{ datetime(res.meta.created, '%a, %d %b %Y') }}
+    </time>
+    <a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a>
+    {% if res.meta.tags %}
+    <ul class="tags">
+    {% for tag in res.meta.tags %}
+    <li>
+        <a class="small" href="{{ content_url(resource.meta.lc~'/blog/tags/'~tag~'.html') }}">
+            {{ gettext(tag) }}
+        </a>
+    </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+</li>
+{%- endfor %}
+</ul>
+</section>
+{% endblock %}

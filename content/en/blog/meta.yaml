@@ -1,0 +1,4 @@
+lc: en
+extends: blog.j2
+default_block: post
+listable: true
